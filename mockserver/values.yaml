@@ -1,0 +1,20 @@
+appName: mockserver
+replicaCount: 1
+image:
+  name: "dockerio.docker.bin.sbb.ch/nambrosini/mockserver"
+  tag: "latest"
+  port: 8080
+
+service:
+  name: mockserver
+  port: 80
+
+route:
+  path: /
+
+cm:
+  name: mockserver-config
+
+persistence:
+  name: mockserver-logs-pvc
+  size: "1Gi"

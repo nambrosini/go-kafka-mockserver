@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  mockserver:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - LOG_FILE=/logs/mockserver.log
+    volumes:
+      - mockserver-logs:/logs
+
+volumes:
+  mockserver-logs:
+    driver: local
