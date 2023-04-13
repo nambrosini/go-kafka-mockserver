@@ -2,13 +2,11 @@ package routes
 
 import (
 	"encoding/json"
-	"github.com/nambrosini/kafka-api/config"
-	m "github.com/nambrosini/kafka-api/metrics"
+	m "github.com/nambrosini/go-kafka-mockserver/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 )
 
@@ -35,21 +33,6 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Valid JSON", string(body))
 	m.KafkaValidMessages.With(prometheus.Labels{"topic": route}).Inc()
 	w.WriteHeader(http.StatusCreated)
-}
-
-func LogsHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		w.WriteHeader(http.StatusMethodNotAllowed)
-		return
-	}
-	data, err := os.ReadFile(config.LogFile)
-	if err != nil {
-		log.Println(err)
-	}
-	_, err = w.Write(data)
-	if err != nil {
-		log.Println(err)
-	}
 }
 
 func validateJsonRequest(body string) error {

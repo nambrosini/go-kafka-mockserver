@@ -1,4 +1,4 @@
-module github.com/nambrosini/kafka-api
+module github.com/nambrosini/go-kafka-mockserver
 
 go 1.19
 
